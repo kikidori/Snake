@@ -376,7 +376,7 @@ void Screen_Init(void) {
 // *********************************************************************
 
 void App_TaskBall(void *data) {
-    int x, y, x_tail, y_tail;
+    int x, y, x_tail, y_tail, count;
     x_delta = 1;
     y_delta = 0;
     //int Ls, Rs, Left_Score = 0, Right_Score = 0;
@@ -431,7 +431,7 @@ void App_TaskBall(void *data) {
         } else 
         {
             Screen_WriteChar(snake_x[size-1], snake_y[size-1], ' ');
-            for (int count = size-1; count > 0; count--)
+            for (count = size-1; count > 0; count--)
             {
                 snake_x[count] = snake_x[count-1];
                 snake_y[count] = snake_y[count-1];
