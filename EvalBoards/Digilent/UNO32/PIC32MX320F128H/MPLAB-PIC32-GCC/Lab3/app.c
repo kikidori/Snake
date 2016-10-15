@@ -119,7 +119,7 @@ void Screen_OnCursor (void);
 // ********************************************************************* */
 // Global Variables
 // *********************************************************************
-int x_delta, y_delta, size;
+int x_delta, y_delta, size, food_x, food_y, need_food;
 int snake_x[SCREEN_X_END*SCREEN_Y_END];
 int snake_y[SCREEN_X_END*SCREEN_Y_END];
 
@@ -384,6 +384,8 @@ void App_TaskBall(void *data) {
 
     //Screen_WriteNumber(SCORE_LEFT_X_START, SCORE_Y, Left_Score);
     //Screen_WriteNumber(SCORE_RIGHT_X_START, SCORE_Y, Right_Score);
+    
+    
 
     x = BALL_X_START;
     y = BALL_Y_START;
@@ -414,7 +416,13 @@ void App_TaskBall(void *data) {
 
         x += x_delta; // Move to new position
         y += y_delta;
-        if(size == 1)
+        if (x == food_x && y == food_y)
+        {
+            size++;
+            Screen_WriteChar(x, y, '*');
+            need_food = 1;
+        }
+        else if(size == 1)
         {
             Screen_WriteChar(snake_x[0], snake_y[0], ' ');
             snake_x[0] = x;
@@ -423,6 +431,11 @@ void App_TaskBall(void *data) {
         } else 
         {
             Screen_WriteChar(snake_x[size-1], snake_y[size-1], ' ');
+            for (int count = size-1; count > 0; count--)
+            {
+                snake_x[count] = snake_x[count-1];
+                snake_y[count] = snake_y[count-1];
+            }
             snake_x[0] = x;
             snake_y[0] = y;
             Screen_WriteChar(x, y, '*');
