@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="62">
+  <logicalFolder name="root" displayName="root" projectFiles="true">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>../../../../../../CPU/Microchip/PIC32/CoreTimer.h</itemPath>
+      <itemPath>../../../../../../CPU/Microchip/PIC32/INT.h</itemPath>
+      <itemPath>../app_cfg.h</itemPath>
+      <itemPath>../../BSP/bsp.h</itemPath>
+      <itemPath>../../BSP/bsp_peripherals.h</itemPath>
+      <itemPath>../../../../../../uC-CPU/MIPS32-4K/MPLAB-PIC32-GCC/cpu.h</itemPath>
+      <itemPath>../cpu_cfg.h</itemPath>
+      <itemPath>../../../../../../uC-CPU/cpu_core.h</itemPath>
+      <itemPath>../../../../../../uC-CPU/cpu_def.h</itemPath>
+      <itemPath>../includes.h</itemPath>
+      <itemPath>../../../../../../uC-LIB/lib_ascii.h</itemPath>
+      <itemPath>../lib_cfg.h</itemPath>
+      <itemPath>../../../../../../uC-LIB/lib_def.h</itemPath>
+      <itemPath>../../../../../../uC-LIB/lib_math.h</itemPath>
+      <itemPath>../../../../../../uC-LIB/lib_mem.h</itemPath>
+      <itemPath>../../../../../../uC-LIB/lib_str.h</itemPath>
+      <itemPath>../../../../../../uCOS-III/Source/os.h</itemPath>
+      <itemPath>../os_app_hooks.h</itemPath>
+      <itemPath>../os_cfg.h</itemPath>
+      <itemPath>../os_cfg_app.h</itemPath>
+      <itemPath>../../../../../../uCOS-III/Ports/MIPS32-4K/Vectored-Interrupt/MPLAB-PIC32-GCC/os_cpu.h</itemPath>
+      <itemPath>../../../../../../uCOS-III/Source/os_type.h</itemPath>
+      <itemPath>../../../../../../CPU/Microchip/PIC32/osc.h</itemPath>
+      <itemPath>../../../../../../CPU/Microchip/PIC32/ports.h</itemPath>
+      <itemPath>../../../../../../CPU/Microchip/PIC32/system.h</itemPath>
+      <itemPath>../../../../../../CPU/Microchip/PIC32/timer.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="LibraryFiles"
+                   displayName="Library Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="LinkerScript"
+                   displayName="Linker Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="ObjectFiles"
+                   displayName="Object Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>../../../../../../CPU/Microchip/PIC32/PIC32INTlib.c</itemPath>
+      <itemPath>../app.c</itemPath>
+      <itemPath>../../BSP/bsp.c</itemPath>
+      <itemPath>../../BSP/bsp_a.S</itemPath>
+      <itemPath>../../../../../../uC-CPU/MIPS32-4K/MPLAB-PIC32-GCC/cpu_a.s</itemPath>
+      <itemPath>../../../../../../uC-CPU/MIPS32-4K/MPLAB-PIC32-GCC/cpu_c.c</itemPath>
+      <itemPath>../../../../../../uC-CPU/cpu_core.c</itemPath>
+      <itemPath>../../BSP/crt0.S</itemPath>
+      <itemPath>../../../../../../uC-LIB/lib_ascii.c</itemPath>
+      <itemPath>../../../../../../uC-LIB/lib_math.c</itemPath>
+      <itemPath>../../../../../../uC-LIB/lib_mem.c</itemPath>
+      <itemPath>../../../../../../uC-LIB/lib_str.c</itemPath>
+      <itemPath>../os_app_hooks.c</itemPath>
+      <itemPath>../../../../../../uCOS-III/Source/os_cfg_app.c</itemPath>
+      <itemPath>../../../../../../uCOS-III/Source/os_core.c</itemPath>
+      <itemPath>../../../../../../uCOS-III/Ports/MIPS32-4K/Vectored-Interrupt/MPLAB-PIC32-GCC/os_cpu_a.S</itemPath>
+      <itemPath>../../../../../../uCOS-III/Ports/MIPS32-4K/Vectored-Interrupt/MPLAB-PIC32-GCC/os_cpu_c.c</itemPath>
+      <itemPath>../../../../../../uCOS-III/Source/os_dbg.c</itemPath>
+      <itemPath>../../../../../../uCOS-III/Source/os_flag.c</itemPath>
+      <itemPath>../../../../../../uCOS-III/Source/os_int.c</itemPath>
+      <itemPath>../../../../../../uCOS-III/Source/os_mem.c</itemPath>
+      <itemPath>../../../../../../uCOS-III/Source/os_msg.c</itemPath>
+      <itemPath>../../../../../../uCOS-III/Source/os_mutex.c</itemPath>
+      <itemPath>../../../../../../uCOS-III/Source/os_pend_multi.c</itemPath>
+      <itemPath>../../../../../../uCOS-III/Source/os_prio.c</itemPath>
+      <itemPath>../../../../../../uCOS-III/Source/os_q.c</itemPath>
+      <itemPath>../../../../../../uCOS-III/Source/os_sem.c</itemPath>
+      <itemPath>../../../../../../uCOS-III/Source/os_stat.c</itemPath>
+      <itemPath>../../../../../../uCOS-III/Source/os_task.c</itemPath>
+      <itemPath>../../../../../../uCOS-III/Source/os_tick.c</itemPath>
+      <itemPath>../../../../../../uCOS-III/Source/os_time.c</itemPath>
+      <itemPath>../../../../../../uCOS-III/Source/os_tmr.c</itemPath>
+      <itemPath>../../../../../../uCOS-III/Source/os_var.c</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="default" type="2">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <targetDevice>PIC32MX795F512L</targetDevice>
+        <targetHeader></targetHeader>
+        <platformTool>SKDEPIC32PlatformTool</platformTool>
+        <languageToolchain>XC32</languageToolchain>
+        <languageToolchainVersion>1.00</languageToolchainVersion>
+        <platform>3</platform>
+      </toolsSet>
+      <compileType>
+        <linkerTool>
+          <linkerLibItems>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <makeCustomizationType>
+        <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
+        <makeCustomizationPreStep></makeCustomizationPreStep>
+        <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
+        <makeCustomizationPostStep></makeCustomizationPostStep>
+        <makeCustomizationAlternativeFileToLoadEnabled>false</makeCustomizationAlternativeFileToLoadEnabled>
+        <makeCustomizationAlternativeFileToLoad></makeCustomizationAlternativeFileToLoad>
+        <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
+      </makeCustomizationType>
+      <C32>
+      </C32>
+      <SKDEPIC32PlatformTool>
+        <property key="whatToProgram" value="all"/>
+      </SKDEPIC32PlatformTool>
+      <XC32>
+        <property key="additional-warnings" value="false"/>
+        <property key="enable-app-io" value="false"/>
+        <property key="enable-omit-frame-pointer" value="false"/>
+        <property key="enable-symbols" value="true"/>
+        <property key="enable-unroll-loops" value="false"/>
+        <property key="exclude-floating-point" value="false"/>
+        <property key="extra-include-directories"
+                  value="..\..\..\..\..\..\uCOS-III\Source;..\..\..\..\..\..\uCOS-III\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC;..\..\..\..\..\..\uC-CPU;..\..\..\..\..\..\uC-LIB;..\..\..\..\..\..\uC-CPU\MIPS32-4K\MPLAB-PIC32-GCC;..\..\..\..\..\..\CPU\Microchip\PIC32;..\..\BSP;..\"/>
+        <property key="generate-16-bit-code" value="false"/>
+        <property key="isolate-each-function" value="false"/>
+        <property key="make-warnings-into-errors" value="false"/>
+        <property key="optimization-level" value=""/>
+        <property key="place-data-into-section" value="false"/>
+        <property key="post-instruction-scheduling" value="default"/>
+        <property key="pre-instruction-scheduling" value="default"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="strict-ansi" value="false"/>
+        <property key="support-ansi" value="false"/>
+        <property key="use-indirect-calls" value="false"/>
+      </XC32>
+      <XC32-AS>
+      </XC32-AS>
+      <XC32-LD>
+        <property key="enable-check-sections" value="false"/>
+        <property key="exclude-floating-point-library" value="false"/>
+        <property key="exclude-standard-libraries" value="false"/>
+        <property key="extra-lib-directories" value=""/>
+        <property key="generate-16-bit-code" value="false"/>
+        <property key="generate-cross-reference-file" value="false"/>
+        <property key="heap-size" value=""/>
+        <property key="input-libraries" value=""/>
+        <property key="linker-symbols" value=""/>
+        <property key="map-file" value=""/>
+        <property key="no-startup-files" value="true"/>
+        <property key="optimization-level" value=""/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="remove-unused-sections" value="false"/>
+        <property key="report-memory-usage" value="false"/>
+        <property key="stack-size" value=""/>
+        <property key="symbol-stripping" value=""/>
+        <property key="trace-symbols" value=""/>
+        <property key="warn-section-align" value="false"/>
+      </XC32-LD>
+      <XC32Global>
+      </XC32Global>
+    </conf>
+  </confs>
+</configurationDescriptor>
