@@ -38,12 +38,10 @@
 #define TASK_STK_SIZE 256 
 
 #define APP_CFG_TASK_BALL_STK_SIZE TASK_STK_SIZE
-#define APP_CFG_TASK_PADDLE_LEFT_STK_SIZE TASK_STK_SIZE
-#define APP_CFG_TASK_PADDLE_RIGHT_STK_SIZE TASK_STK_SIZE
+#define APP_CFG_TASK_FOOD_STK_SIZE TASK_STK_SIZE
 
 #define APP_CFG_TASK_BALL_STK_SIZE_LIMIT TASK_STK_SIZE-32
-#define APP_CFG_TASK_PADDLE_LEFT_STK_SIZE_LIMIT TASK_STK_SIZE-32
-#define APP_CFG_TASK_PADDLE_RIGHT_STK_SIZE_LIMIT TASK_STK_SIZE-32
+#define APP_CFG_TASK_FOOD_STK_SIZE_LIMIT TASK_STK_SIZE-32
 
 static  OS_TCB    App_TaskStartTCB;
 static  CPU_STK   App_TaskStartStk[APP_CFG_TASK_START_STK_SIZE];
@@ -51,11 +49,8 @@ static  CPU_STK   App_TaskStartStk[APP_CFG_TASK_START_STK_SIZE];
 static  OS_TCB    App_TaskBallTCB;
 static  CPU_STK   App_TaskBallStk[APP_CFG_TASK_BALL_STK_SIZE];
 
-static  OS_TCB    App_TaskPaddleLeftTCB;
-static  CPU_STK   App_TaskPaddleLeftStk[APP_CFG_TASK_PADDLE_LEFT_STK_SIZE];
-
-static  OS_TCB    App_TaskPaddleRightTCB;
-static  CPU_STK   App_TaskPaddleRightStk[APP_CFG_TASK_PADDLE_RIGHT_STK_SIZE];
+static  OS_TCB    App_TaskFoodTCB;
+static  CPU_STK   App_TaskFoodStk[APP_CFG_TASK_FOOD_STK_SIZE];
 
 /*
 *********************************************************************************************************
@@ -67,9 +62,7 @@ static  void        App_TaskStart(void *p_arg);
 static  void        AppTaskCreate(void);
 
 static void         App_TaskBall (void *data);
-static void         App_TaskPaddleLeft (void *data);
-static void         App_TaskPaddleRight (void *data);
-
+static void         App_TaskFood (void *data);
 /*
 *********************************************************************************************************
 *                                            Pong Task Priorities
@@ -77,8 +70,7 @@ static void         App_TaskPaddleRight (void *data);
 */
 
 #define APP_CFG_TASK_BALL_PRIO 4
-#define APP_CFG_TASK_PADDLE_LEFT_PRIO 5
-#define APP_CFG_TASK_PADDLE_RIGHT_PRIO 6
+#define APP_CFG_TASK_FOOD_PRIO 5
 
 // *********************************************************************
 // GPIO defines     Switches on Digilent Basic Shield for UNO32
@@ -97,16 +89,8 @@ static void         App_TaskPaddleRight (void *data);
 #define SCREEN_Y_START      1
 #define SCREEN_Y_END        25
 
-#define PADDLE_LEFT_X       2
-#define PADDLE_RIGHT_X      (SCREEN_X_END - 2)
-#define PADDLE_Y_START	    10
-#define PADDLE_LENGTH	    6
-
 #define BALL_X_START	    ((SCREEN_X_END - SCREEN_X_START)/2)
 #define BALL_Y_START	    ((SCREEN_Y_END - SCREEN_Y_START)/2)
-#define SCORE_LEFT_X_START   3
-#define SCORE_Y 	     3
-#define SCORE_RIGHT_X_START  (SCREEN_X_END - 5)
 
 void Screen_Init(void);
 void Screen_Clear (void);
@@ -119,9 +103,10 @@ void Screen_OnCursor (void);
 // ********************************************************************* */
 // Global Variables
 // *********************************************************************
-int x_delta, y_delta, size, food_x, food_y, need_food;
+int x_delta, y_delta, size = 1, food_x, food_y, need_food = 1;
 int snake_x[SCREEN_X_END*SCREEN_Y_END];
 int snake_y[SCREEN_X_END*SCREEN_Y_END];
+int map[SCREEN_X_END][SCREEN_Y_END];
 
 /*
  *********************************************************************************************************
@@ -280,6 +265,23 @@ static void AppTaskCreate(void) {
     if (os_err != OS_ERR_NONE) {
         putsU1("Error starting Ball task: ");
     }
+    OSTaskCreate((OS_TCB *) & App_TaskFoodTCB, /* Create the ball task       */
+            (CPU_CHAR *) "Food",
+            (OS_TASK_PTR) App_TaskFood,
+            (void *) 0,
+            (OS_PRIO) APP_CFG_TASK_FOOD_PRIO,
+            (CPU_STK *) & App_TaskFoodStk[0],
+            (CPU_STK_SIZE) APP_CFG_TASK_FOOD_STK_SIZE_LIMIT,
+            (CPU_STK_SIZE) APP_CFG_TASK_FOOD_STK_SIZE,
+            (OS_MSG_QTY) 0u,
+            (OS_TICK) 0u,
+            (void *) 0,
+            (OS_OPT) (OS_OPT_TASK_STK_CHK | OS_OPT_TASK_STK_CLR),
+            (OS_ERR *) & os_err);
+
+    if (os_err != OS_ERR_NONE) {
+        putsU1("Error starting Food task: ");
+    }
 
 }
 
@@ -371,9 +373,34 @@ void Screen_Init(void) {
 }
 
 
+
 /* ********************************************************************* */
 /* Application Tasks*/
 // *********************************************************************
+
+void App_TaskFood (void *data)
+{
+    int x, y;
+    //int Ls, Rs, Left_Score = 0, Right_Score = 0;
+    OS_ERR err;
+
+    //Screen_WriteNumber(SCORE_LEFT_X_START, SCORE_Y, Left_Score);
+    //Screen_WriteNumber(SCORE_RIGHT_X_START, SCORE_Y, Right_Score);
+    while (DEF_TRUE) {
+        OSTimeDlyHMSM(0, 0, 0, 75, OS_OPT_TIME_HMSM_STRICT, &err);
+        if (need_food == 1)
+        {
+            x = rand()%SCREEN_X_END;
+            y = rand()%SCREEN_Y_END;
+            while (isOccupied(x, y) == 1)
+            {
+                x = rand()%SCREEN_X_END;;
+                y = rand()%SCREEN_Y_END;
+            }
+            need_food = 0;
+        }
+    }
+}
 
 void App_TaskBall(void *data) {
     int x, y, x_tail, y_tail, count;
@@ -385,8 +412,6 @@ void App_TaskBall(void *data) {
     //Screen_WriteNumber(SCORE_LEFT_X_START, SCORE_Y, Left_Score);
     //Screen_WriteNumber(SCORE_RIGHT_X_START, SCORE_Y, Right_Score);
     
-    
-
     x = BALL_X_START;
     y = BALL_Y_START;
     Screen_WriteChar(x, y, '*');
@@ -394,8 +419,8 @@ void App_TaskBall(void *data) {
         OSTimeDlyHMSM(0, 0, 0, 75, OS_OPT_TIME_HMSM_STRICT, &err); // Wait -- give another task a chance to run
          // Erase old position
 
-        if (((x > SCREEN_X_END)) || ((x < SCREEN_X_START))) x_delta = 0; //Provides collisions
-        if ((y > SCREEN_Y_END) || (y < SCREEN_Y_START)) y_delta = 0; //Provides collisions
+        if (((x > SCREEN_X_END)) || ((x < SCREEN_X_START))) x_delta = 0; //Provides collisions should end game
+        if ((y > SCREEN_Y_END) || (y < SCREEN_Y_START)) y_delta = 0; //Provides collisions should end game
         if (Ball_Up())
         {
             x_delta = 0;
@@ -416,21 +441,27 @@ void App_TaskBall(void *data) {
 
         x += x_delta; // Move to new position
         y += y_delta;
+        map[x][y] = 1;
         if (x == food_x && y == food_y)
         {
             size++;
             Screen_WriteChar(x, y, '*');
             need_food = 1;
+        } else if (isOccupied(x, y) == 1)
+        {
+            //end game ran into self
         }
         else if(size == 1)
         {
             Screen_WriteChar(snake_x[0], snake_y[0], ' ');
+            map[snake_x[0]][snake_y[0]] = 0;
             snake_x[0] = x;
             snake_y[0] = y;
             Screen_WriteChar(x, y, '*');
         } else 
         {
             Screen_WriteChar(snake_x[size-1], snake_y[size-1], ' ');
+            map[snake_x[size-1]][snake_y[size-1]] = 0;
             for (count = size-1; count > 0; count--)
             {
                 snake_x[count] = snake_x[count-1];
@@ -470,4 +501,15 @@ int Ball_Right() {
         return 1;
     else
         return 0;
+}
+
+int isOccupied(int x, int y)
+{
+    if(map[x][y] == 1)
+    {
+        return 1;
+    } else
+    {
+        return 0;
+    }
 }
